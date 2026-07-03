@@ -290,12 +290,20 @@
         <img src="Assets/CDE%20logo.png" class="brand-logo" alt="CDE — Construction Durability Engineers" />
       </a>
 
-      <ul class="nav-links">
+            <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html" class="active">About Us</a></li>
         <li><a href="services.html">Services</a></li>
-        <li><a href="index.html#solutions">Solutions</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li class="nav-item">
+          <a href="projects.html" aria-haspopup="true">Projects
+            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="projects.html">All Projects</a>
+            <a href="portfolio.html">Middle East References</a>
+          </div>
+        </li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
 
@@ -307,12 +315,14 @@
     </div>
   </nav>
 
-  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="services.html">Services</a>
-    <a href="index.html#solutions">Solutions</a>
-    <a href="projects.html">Projects</a>
+    <a href="solutions.html">Solutions</a>
+    <div class="mm-group-label">Projects</div>
+    <a href="projects.html" class="mm-sub">All Projects</a>
+    <a href="portfolio.html" class="mm-sub">Middle East References</a>
     <a href="contact.html">Contact</a>
   </div>
 
