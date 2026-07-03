@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — CDE Engineering Services</title>
+  <meta name="description" content="CDE Engineering Services is a specialized structural durability consultancy based in Dubai, serving clients across the UAE and the wider Middle East." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       GLOBAL RESET & BASE
+       ============================================================ */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    body { overflow-x: hidden; }
+
+    /* ============================================================
+       TOKENS — COLOR, RADIUS, EASING
+       ============================================================ */
+    :root {
+      --bg:           #FAF9F7;
+      --surface:      #FFFFFF;
+      --accent:       #B08D4F;
+      --accent-soft:  rgba(176, 141, 79, 0.10);
+      --text:         #1A1A1A;
+      --muted:        #6B6B6B;
+      --border:       rgba(0, 0, 0, 0.08);
+      --glass:        rgba(255, 255, 255, 0.65);
+
+      --radius-sm:    14px;
+      --radius-md:    24px;
+      --radius-lg:    32px;
+      --radius-pill:  999px;
+
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       TYPOGRAPHY
+       ============================================================ */
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: "Sora", "Inter", sans-serif;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    .overline {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .wrap {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ============================================================
+       MOTION — SCROLL REVEAL & BLOBS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: var(--radius-pill);
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
+                  background 0.25s var(--ease), border-color 0.25s var(--ease);
+    }
+    .btn-filled {
+      background: var(--accent);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .btn-filled:hover {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 0 30px rgba(200, 169, 110, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: rgba(0, 0, 0, 0.20);
+    }
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(176, 141, 79, 0.14);
+    }
+
+    /* ============================================================
+       INFO CARDS & ICONS
+       ============================================================ */
+    .info-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
+                  box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+    }
+    .info-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(176, 141, 79, 0.5);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.08), 0 0 24px rgba(176, 141, 79, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .icon-wrap {
+      width: 50px; height: 50px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-soft);
+      border: 1px solid rgba(200, 169, 110, 0.25);
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .icon-wrap svg { width: 22px; height: 22px; }
+
+    .social-btn {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.25s var(--ease);
+    }
+    .social-btn svg { width: 19px; height: 19px; }
+    .social-btn:hover {
+      color: var(--accent);
+      border-color: rgba(200, 169, 110, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(200, 169, 110, 0.18);
+    }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 36px);
+      max-width: 1180px;
+      z-index: 100;
+      height: 66px;
+      background: rgba(250, 249, 247, 0.80);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transition: box-shadow 0.3s var(--ease), top 0.3s var(--ease);
+    }
+    .nav.scrolled {
+      top: 12px;
+      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.14);
+    }
+    .nav .wrap {
+      height: 100%;
+      max-width: none;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-logo { height: 54px; width: auto; display: block; mix-blend-mode: multiply; }
+    .footer-brand .brand-logo { height: 64px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      transition: color 0.2s var(--ease);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { padding: 10px 22px; font-size: 13.5px; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px; height: 28px;
+      background: none; border: none; cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--text);
+      transition: all 0.25s var(--ease);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 94px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 36px);
+      max-width: 1180px;
+      background: rgba(250, 249, 247, 0.98);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.12);
+      padding: 24px 28px;
+      flex-direction: column;
+      gap: 24px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 16px; color: var(--muted); }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ============================================================
+       [1] HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+      padding: 150px 0 110px;
+    }
+    .hero .wrap { position: relative; z-index: 1; }
+    .blob-1 {
+      width: 540px; height: 540px;
+      background: radial-gradient(circle, rgba(176,141,79,0.20), transparent 70%);
+      top: -100px; right: -80px;
+      animation: float1 16s var(--ease) infinite alternate;
+    }
+    .blob-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(176,141,79,0.10), transparent 70%);
+      bottom: 60px; left: -100px;
+      animation: float2 20s var(--ease) infinite alternate;
+    }
+    @keyframes float1 { to { transform: translate(-60px, 50px) scale(1.1); } }
+    @keyframes float2 { to { transform: translate(70px, -40px) scale(1.15); } }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6.5vw, 5rem);
+      font-weight: 300;
+      max-width: 16ch;
+      margin: 22px 0 0;
+    }
+    .hero h1 .accent-word { color: var(--accent); font-style: italic; }
+    .hero p.lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 48ch;
+      margin: 28px 0 44px;
+    }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ============================================================
+       [2] FOUNDING STORY
+       ============================================================ */
+    .story {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 90px 0;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 55% 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .story h2 {
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 300;
+      margin: 18px 0 22px;
+    }
+    .story p {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .story p + p { margin-top: 18px; }
+
+    .stat-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 42px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .stat-row {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-row:first-child { padding-top: 0; }
+    .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .stat-number {
+      font-family: "Sora", sans-serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-name {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ============================================================
+       SECTION HEAD
+       ============================================================ */
+    .section-head h2 {
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 300;
+      margin: 18px 0 12px;
+    }
+    .section-sub { color: var(--muted); max-width: 56ch; }
+
+    /* ============================================================
+       [3] COMMITMENT PILLARS
+       ============================================================ */
+    .pillars { background: var(--bg); padding: 90px 0; }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .pillar-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin: 14px 0 10px;
+    }
+    .pillar-body { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+    /* ============================================================
+       [4] WHY CDE
+       ============================================================ */
+    .why {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 90px 0;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 40% 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .why h2 {
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 300;
+      margin: 18px 0 22px;
+    }
+    .why .lead {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .diff-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .diff-row:last-child { border-bottom: none; }
+    .diff-num {
+      font-family: "Sora", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: rgba(176, 141, 79, 0.35);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 48px;
+    }
+    .diff-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .diff-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       [5] VISION & MISSION
+       ============================================================ */
+    .purpose { background: var(--bg); padding: 90px 0; }
+    .purpose-head { text-align: center; max-width: 600px; margin: 0 auto; }
+    .purpose-head h2 {
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 300;
+      margin: 18px 0 12px;
+    }
+    .purpose-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .vm-card {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      background: var(--glass);
+      border-radius: var(--radius-md);
+      padding: 40px 36px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .vm-label {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .vm-text {
+      font-size: 1.06rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    /* ============================================================
+       [6] CORE VALUES
+       ============================================================ */
+    .values {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 90px 0;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 48px;
+    }
+    .value {
+      padding: 0 32px;
+      border-right: 1px solid var(--border);
+    }
+    .value:last-child { border-right: none; }
+    .value-num {
+      font-family: "Sora", sans-serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(176, 141, 79, 0.22);
+      line-height: 1;
+      display: block;
+    }
+    .value-name {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin: 14px 0 10px;
+      color: var(--text);
+    }
+    .value-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+    /* ============================================================
+       [7] CTA BAND
+       ============================================================ */
+    .cta-band {
+      position: relative;
+      text-align: center;
+      padding: 110px 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .cta-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 700px; height: 400px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse, rgba(200,169,110,0.12), transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .cta-band .wrap { position: relative; z-index: 1; }
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      margin: 18px 0 14px;
+    }
+    .cta-band .section-sub { max-width: 50ch; margin: 0 auto 44px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 36px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .footer-blurb { font-size: 13px; color: var(--muted); max-width: 28ch; line-height: 1.7; margin-top: 20px; }
+    .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+    .footer-label {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .footer-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-list a, .footer-contact li {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.2s var(--ease);
+    }
+    .footer-list a:hover { color: var(--text); }
+    .footer-contact { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .footer-contact li { display: flex; align-items: flex-start; gap: 10px; }
+    .footer-contact svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
+    .footer-contact .addr { font-size: 13px; line-height: 1.6; }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-bottom .left { font-size: 13.5px; color: var(--muted); }
+    .footer-bottom .right { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 7px; }
+    .footer-bottom .right svg { width: 14px; height: 14px; color: var(--accent); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 120px 0 80px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .purpose-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .value:nth-child(2) { border-right: none; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 540px) {
+      .wrap { padding: 0 20px; }
+
+      .values-grid { grid-template-columns: 1fr; }
+      .value {
+        border-right: none !important;
+        padding: 0 0 32px;
+      }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      .hero-cta .btn, .cta-buttons .btn { width: 100%; }
+      .hero-cta, .cta-buttons { width: 100%; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="index.html" aria-label="CDE Engineering Services home">
+        <img src="Assets/CDE%20logo.png" class="brand-logo" alt="CDE — Construction Durability Engineers" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="index.html#solutions">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <a href="contact.html" class="btn btn-filled nav-cta">Get in Touch</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <main>
+
+    <!-- ===================== [1] HERO ===================== -->
+    <section class="hero">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <div class="wrap">
+        <div class="overline reveal">Who We Are</div>
+        <h1 class="reveal" style="transition-delay:.08s">Engineering<br />Durable <span class="accent-word" style="color:var(--accent);font-style:italic">Futures.</span></h1>
+        <p class="lead reveal" style="transition-delay:.12s">CDE Engineering Services is a specialized structural engineering consultancy built around one discipline — understanding how structures deteriorate and designing precisely targeted solutions to stop it. We serve clients across the UAE and the wider Middle East from our base in Dubai.</p>
+        <div class="hero-cta reveal" style="transition-delay:.16s">
+          <a href="services.html" class="btn btn-filled">Our Services</a>
+          <a href="contact.html" class="btn btn-outline">Start a Conversation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [2] FOUNDING STORY ===================== -->
+    <section class="story">
+      <div class="wrap">
+        <div class="story-grid">
+          <!-- Left -->
+          <div>
+            <div class="overline reveal">Our Story</div>
+            <h2 class="reveal" style="transition-delay:.08s">A Firm Built Around One Discipline</h2>
+            <p class="reveal" style="transition-delay:.12s">CDE was established with a clear mandate — to bring genuine specialist expertise to concrete durability and structural assessment in the Middle East. Too often, repair decisions are made without a thorough understanding of the underlying deterioration mechanisms. We exist to change that.</p>
+            <p class="reveal" style="transition-delay:.16s">Based in Dubai and operating across the Gulf, we work on both existing structures requiring assessment and rehabilitation, and new structures where durability must be designed in from day one. Every engagement is led by a senior engineer — not delegated down.</p>
+          </div>
+
+          <!-- Right -->
+          <div class="stat-card reveal" style="transition-delay:.2s">
+            <div class="stat-row">
+              <div class="stat-number">200+</div>
+              <div class="stat-name">Projects Delivered</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-number">6</div>
+              <div class="stat-name">UAE Emirates Served</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-number">15+</div>
+              <div class="stat-name">Years of Combined Expertise</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [3] COMMITMENT PILLARS ===================== -->
+    <section class="pillars">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="overline reveal">What We Stand For</div>
+          <h2 class="reveal" style="transition-delay:.08s">Four Commitments That Define How We Work</h2>
+          <p class="section-sub reveal" style="transition-delay:.12s">These are not aspirational statements. They are the standards we hold ourselves to on every project.</p>
+        </div>
+
+        <div class="pillars-grid">
+          <!-- 1 -->
+          <article class="info-card reveal">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+            </div>
+            <h3 class="pillar-title">Structural Safety</h3>
+            <p class="pillar-body">Every recommendation we make is grounded in verified field data and sound engineering judgment. We never speculate — we investigate.</p>
+          </article>
+          <!-- 2 -->
+          <article class="info-card reveal" style="transition-delay:.08s">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.5 5.3 5.8.8-4.2 4 1 5.7L12 16.1 6.9 18.8l1-5.7-4.2-4 5.8-.8z"/></svg>
+            </div>
+            <h3 class="pillar-title">Engineering Excellence</h3>
+            <p class="pillar-body">Our reports are technically rigorous and peer-reviewed. We hold our documentation to publication standard — because clients make decisions based on it.</p>
+          </article>
+          <!-- 3 -->
+          <article class="info-card reveal">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 3c1 2 2 4.18 2 8a7 7 0 0 1-7 7z"/><path d="M5 21c.5-4.5 2.5-8 7-10"/></svg>
+            </div>
+            <h3 class="pillar-title">Environmental Responsibility</h3>
+            <p class="pillar-body">Extending the service life of existing structures is the most sustainable engineering decision. We design repairs that last, reducing material consumption and waste.</p>
+          </article>
+          <!-- 4 -->
+          <article class="info-card reveal" style="transition-delay:.08s">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 7-7"/><path d="M17 7h4v4"/></svg>
+            </div>
+            <h3 class="pillar-title">Long-Term Value Creation</h3>
+            <p class="pillar-body">We optimise for lifecycle cost, not just upfront repair cost. Our clients save significantly over 10–20 year horizons by acting on our recommendations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [4] WHY CDE ===================== -->
+    <section class="why">
+      <div class="wrap">
+        <div class="why-grid">
+          <!-- Left -->
+          <div>
+            <div class="overline reveal">Why Choose CDE</div>
+            <h2 class="reveal" style="transition-delay:.08s">Specialist Focus. Senior Engineers. Objective Advice.</h2>
+            <p class="lead reveal" style="transition-delay:.12s">We are not a general consultancy that includes structural assessment among many services. Durability and structural condition assessment is our entire focus — and that depth of specialization is what our clients come back for.</p>
+          </div>
+
+          <!-- Right -->
+          <div>
+            <div class="diff-row reveal">
+              <div class="diff-num">01</div>
+              <div>
+                <div class="diff-title">Dedicated Specialists</div>
+                <p class="diff-desc">Every project is led by a senior engineer with focused expertise in concrete durability and structural condition — not a generalist with a wide portfolio.</p>
+              </div>
+            </div>
+            <div class="diff-row reveal" style="transition-delay:.08s">
+              <div class="diff-num">02</div>
+              <div>
+                <div class="diff-title">Independent &amp; Objective</div>
+                <p class="diff-desc">We have no affiliation with contractors or product suppliers. Our recommendations are driven purely by engineering evidence.</p>
+              </div>
+            </div>
+            <div class="diff-row reveal" style="transition-delay:.12s">
+              <div class="diff-num">03</div>
+              <div>
+                <div class="diff-title">Full-Lifecycle Thinking</div>
+                <p class="diff-desc">We engage from condition diagnosis all the way through repair design, specification, and supervision — giving clients continuity across the entire project.</p>
+              </div>
+            </div>
+            <div class="diff-row reveal" style="transition-delay:.16s">
+              <div class="diff-num">04</div>
+              <div>
+                <div class="diff-title">Middle East Expertise</div>
+                <p class="diff-desc">Our engineers understand the specific durability challenges of this climate — chloride exposure, thermal gradients, carbonation in high-temperature environments.</p>
+              </div>
+            </div>
+            <div class="diff-row reveal" style="transition-delay:.2s">
+              <div class="diff-num">05</div>
+              <div>
+                <div class="diff-title">Transparent Reporting</div>
+                <p class="diff-desc">Our reports are written for clarity. Findings, conclusions, and recommendations are clearly structured so clients and contractors can act on them immediately.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [5] VISION & MISSION ===================== -->
+    <section class="purpose">
+      <div class="wrap">
+        <div class="purpose-head">
+          <div class="overline reveal">Purpose</div>
+          <h2 class="reveal" style="transition-delay:.08s">Vision &amp; Mission</h2>
+          <p class="section-sub reveal" style="transition-delay:.12s; max-width:none">The two principles that guide every decision we make.</p>
+        </div>
+
+        <div class="purpose-grid">
+          <article class="vm-card reveal">
+            <div class="vm-label">Our Vision</div>
+            <p class="vm-text">To be the leading structural durability consultancy in the Middle East — recognized for the technical rigour of our assessments and the lasting performance of the solutions we design.</p>
+          </article>
+          <article class="vm-card reveal" style="transition-delay:.08s">
+            <div class="vm-label">Our Mission</div>
+            <p class="vm-text">To help owners, developers, and asset managers make informed decisions about the condition of their structures — through objective investigation, precise engineering analysis, and solutions designed to perform over the full service life.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [6] CORE VALUES ===================== -->
+    <section class="values">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="overline reveal">Our Values</div>
+          <h2 class="reveal" style="transition-delay:.08s">The Standards We Hold Ourselves To</h2>
+        </div>
+
+        <div class="values-grid">
+          <div class="value reveal">
+            <span class="value-num">01</span>
+            <div class="value-name">Integrity</div>
+            <p class="value-desc">We report what we find — not what clients hope to hear. Our engineering conclusions are never influenced by commercial pressure.</p>
+          </div>
+          <div class="value reveal" style="transition-delay:.08s">
+            <span class="value-num">02</span>
+            <div class="value-name">Excellence</div>
+            <p class="value-desc">We hold every deliverable to the standard of our best work. Technical competence is the foundation of everything we do.</p>
+          </div>
+          <div class="value reveal" style="transition-delay:.16s">
+            <span class="value-num">03</span>
+            <div class="value-name">Collaboration</div>
+            <p class="value-desc">We work alongside our clients, their design teams, and contractors — sharing knowledge so the best outcome is achieved collectively.</p>
+          </div>
+          <div class="value reveal" style="transition-delay:.24s">
+            <span class="value-num">04</span>
+            <div class="value-name">Innovation</div>
+            <p class="value-desc">We adopt advanced testing methods, modeling tools, and durability standards — staying current with international best practice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== [7] CTA BAND ===================== -->
+    <section class="cta-band">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="overline reveal">Start a Conversation</div>
+        <h2 class="reveal" style="transition-delay:.08s">Ready to Work Together?</h2>
+        <p class="section-sub reveal" style="transition-delay:.12s">Tell us about your structure and what you need. Our engineers will respond with clear, solution-oriented guidance.</p>
+        <div class="cta-buttons reveal" style="transition-delay:.16s">
+          <a href="contact.html" class="btn btn-filled">Send an Inquiry</a>
+          <a href="services.html" class="btn btn-outline">Explore Our Services</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <!-- Col 1 -->
+        <div class="footer-brand">
+          <img src="Assets/CDE%20logo.png" class="brand-logo" alt="CDE — Construction Durability Engineers" />
+          <p class="footer-blurb">Specialized engineering consulting across the UAE and Middle East since 2021.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/construction-durability-engineers-cde/" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/cdeengineering/" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://wa.me/971558933066" class="social-btn" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.7-.4 2.9a8.3 8.3 0 0 0 3.9 4c1.5.7 2.3.6 2.9.5.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2 -->
+        <div>
+          <div class="footer-label">Services</div>
+          <ul class="footer-list">
+            <li><a href="services.html">Condition Assessment</a></li>
+            <li><a href="services.html">Forensic Investigation</a></li>
+            <li><a href="services.html">Structural Analysis</a></li>
+            <li><a href="services.html">Durability Engineering</a></li>
+            <li><a href="services.html">Repair &amp; Rehabilitation</a></li>
+            <li><a href="services.html">Strengthening Solutions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div>
+          <div class="footer-label">Company</div>
+          <ul class="footer-list">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="projects.html">Case Studies</a></li>
+            <li><a href="projects.html">Middle East References</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div>
+          <div class="footer-label">Get in Touch</div>
+          <ul class="footer-contact">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <a href="mailto:info@cde-me.com">info@cde-me.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 7a2 2 0 0 1 2-3z"/></svg>
+              <a href="tel:+97143435287">(+971) 43435287</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span class="addr">Office 206, Golden Gate Building, Oud Metha, Dubai</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="left">© 2026 CDE Engineering Services — Construction Durability Engineers</div>
+        <div class="right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Dubai, UAE
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Scroll reveal observer ----------
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // ---------- Nav shadow on scroll ----------
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ---------- Mobile menu ----------
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    hamburger.addEventListener("click", () => {
+      const open = mobileMenu.classList.toggle("open");
+      hamburger.setAttribute("aria-expanded", String(open));
+    });
+    mobileMenu.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      })
+    );
+  </script>
+</body>
+</html>

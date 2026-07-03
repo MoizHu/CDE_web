@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — CDE Engineering Services</title>
+<meta name="description" content="Get in touch with CDE Engineering Services — Construction Durability Engineers based in Dubai, UAE." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF9F7;
+    --surface: #FFFFFF;
+    --accent: #B08D4F;
+    --accent-soft: rgba(176, 141, 79, 0.10);
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --border: rgba(0, 0, 0, 0.08);
+    --glass: rgba(255, 255, 255, 0.65);
+    --input-bg: rgba(0, 0, 0, 0.03);
+    --input-border: rgba(0, 0, 0, 0.12);
+    --radius-sm: 14px;
+    --radius-md: 24px;
+    --radius-lg: 32px;
+    --radius-pill: 999px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: "Sora", "Inter", sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .overline {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border-radius: var(--radius-pill);
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
+                background 0.25s var(--ease), border-color 0.25s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-filled {
+    background: var(--accent);
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  .btn-filled:hover {
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 0 30px rgba(200, 169, 110, 0.35);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border-color: rgba(0, 0, 0, 0.20);
+  }
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(176, 141, 79, 0.14);
+  }
+
+  /* ---------- Nav (shared across all pages) ---------- */
+  .nav {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+    max-width: 1180px;
+    z-index: 100;
+    height: 66px;
+    background: rgba(250, 249, 247, 0.80);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s var(--ease), top 0.3s var(--ease);
+  }
+  .nav.scrolled {
+    top: 12px;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.14);
+  }
+  .nav .wrap {
+    height: 100%;
+    max-width: none;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand-mark {
+    font-family: "Sora", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .brand-sub {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .brand-logo { height: 54px; width: auto; display: block; mix-blend-mode: multiply; }
+  .footer-brand .brand-logo { height: 64px; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    transition: color 0.2s var(--ease);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-cta { padding: 10px 22px; font-size: 13.5px; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px; height: 28px;
+    background: none; border: none; cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    width: 20px; height: 2px;
+    background: var(--text);
+    transition: all 0.25s var(--ease);
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 94px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+    max-width: 1180px;
+    background: rgba(250, 249, 247, 0.98);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.12);
+    padding: 24px 28px;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 99;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 16px; color: var(--muted); }
+  .mobile-menu a:hover { color: var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    padding: 150px 0 110px;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-1 {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(176,141,79,0.22), transparent 70%);
+    top: -160px; right: -120px;
+    animation: float1 16s var(--ease) infinite alternate;
+  }
+  .blob-2 {
+    width: 460px; height: 460px;
+    background: radial-gradient(circle, rgba(176,141,79,0.13), transparent 70%);
+    bottom: -200px; left: -140px;
+    animation: float2 20s var(--ease) infinite alternate;
+  }
+  @keyframes float1 {
+    to { transform: translate(-60px, 50px) scale(1.1); }
+  }
+  @keyframes float2 {
+    to { transform: translate(70px, -40px) scale(1.15); }
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    margin: 26px 0 28px;
+    max-width: 16ch;
+  }
+  .hero p.sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-bottom: 42px;
+  }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ---------- Section spacing ---------- */
+  section { position: relative; }
+  .pad { padding: 70px 0; }
+
+  /* ---------- Info cards ---------- */
+  .info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .info-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 34px 30px;
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
+                box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .info-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+  .info-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(176, 141, 79, 0.5);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.08), 0 0 24px rgba(176, 141, 79, 0.12);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .icon-wrap {
+    width: 50px; height: 50px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid rgba(200, 169, 110, 0.25);
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .icon-wrap svg { width: 22px; height: 22px; }
+  .info-card .label {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .info-card .value {
+    font-size: 1.06rem;
+    font-weight: 400;
+    color: var(--text);
+    transition: color 0.2s var(--ease);
+  }
+  .info-card a.value:hover { color: var(--accent); }
+
+  /* ---------- Two column ---------- */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .left-col h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    margin-bottom: 22px;
+  }
+  .left-col p.lead {
+    color: var(--muted);
+    font-size: 1.02rem;
+    margin-bottom: 34px;
+    max-width: 44ch;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+  .tag {
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(200, 169, 110, 0.35);
+    color: var(--accent);
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .tag:hover {
+    background: var(--accent-soft);
+    transform: translateY(-2px);
+  }
+  .socials { display: flex; gap: 14px; }
+  .social-btn {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.25s var(--ease);
+  }
+  .social-btn svg { width: 19px; height: 19px; }
+  .social-btn:hover {
+    color: var(--accent);
+    border-color: rgba(200, 169, 110, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(200, 169, 110, 0.18);
+  }
+
+  /* ---------- Form ---------- */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 42px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 9px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease),
+                background 0.2s var(--ease);
+    outline: none;
+  }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #aaaaaa; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12);
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    cursor: pointer;
+  }
+  .field select option { background: var(--surface); color: var(--text); }
+  .btn-submit {
+    width: 100%;
+    margin-top: 8px;
+    padding: 17px;
+    font-size: 16px;
+  }
+  .form-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 16px;
+    min-height: 18px;
+    transition: color 0.2s var(--ease);
+  }
+
+  /* ---------- Map ---------- */
+  .map-wrap {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    height: 420px;
+  }
+  .map-wrap iframe {
+    width: 100%; height: 100%;
+    border: 0;
+    filter: grayscale(0.3) contrast(1.05);
+  }
+  .map-badge {
+    position: absolute;
+    bottom: 20px; left: 20px;
+    display: flex; align-items: center; gap: 9px;
+    padding: 12px 18px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  .map-badge svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+
+  /* ---------- Bottom CTA ---------- */
+  .cta-band {
+    position: relative;
+    text-align: center;
+    padding: 100px 0;
+    overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 700px; height: 400px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(200,169,110,0.12), transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .cta-band .wrap { position: relative; z-index: 1; }
+  .cta-band h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 30px;
+  }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Footer (shared across all pages) ---------- */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 60px 0 36px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  .footer-brand .brand-sub { margin-top: 6px; }
+  .footer-blurb { font-size: 13px; color: var(--muted); max-width: 28ch; line-height: 1.7; margin-top: 20px; }
+  .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+  .footer-label {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .footer-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-list a, .footer-contact li {
+    font-size: 14px;
+    color: var(--muted);
+    transition: color 0.2s var(--ease);
+  }
+  .footer-list a:hover { color: var(--text); }
+  .footer-contact { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .footer-contact li { display: flex; align-items: flex-start; gap: 10px; }
+  .footer-contact svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
+  .footer-contact .addr { font-size: 13px; line-height: 1.6; }
+  .footer-contact a:hover { color: var(--text); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-bottom .left { font-size: 13.5px; color: var(--muted); }
+  .footer-bottom .right { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 7px; }
+  .footer-bottom .right svg { width: 14px; height: 14px; color: var(--accent); }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .blob { animation: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .grid-2 { grid-template-columns: 1fr; gap: 36px; }
+    .info-row { grid-template-columns: 1fr; }
+    .hero { padding: 120px 0 80px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .field-row { grid-template-columns: 1fr; }
+    .form-card { padding: 28px; }
+    .hero-cta .btn, .cta-buttons .btn { width: 100%; }
+    .hero-cta, .cta-buttons { width: 100%; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== NAV (shared) ===================== -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="index.html" aria-label="CDE Engineering Services home">
+        <img src="Assets/CDE%20logo.png" class="brand-logo" alt="CDE — Construction Durability Engineers" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="index.html#solutions">Solutions</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+
+      <a href="contact.html" class="btn btn-filled nav-cta">Get in Touch</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#about">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- [1] HERO -->
+  <section class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="wrap">
+      <span class="overline reveal">Get in Touch</span>
+      <h1 class="reveal" style="transition-delay:.08s">Let's Talk About<br />Your Structure.</h1>
+      <p class="sub reveal" style="transition-delay:.16s">
+        Tell us about your project. Our engineers respond with precise,
+        solution-oriented guidance.
+      </p>
+      <div class="hero-cta reveal" style="transition-delay:.24s">
+        <a href="#inquiry" class="btn btn-filled">Send an Inquiry</a>
+        <a href="https://wa.me/971558933066" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.737-.979zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.29.173-1.414z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- [2] INFO CARDS -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="info-row">
+        <div class="info-card reveal">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+          </div>
+          <div class="label">Email Us</div>
+          <a class="value" href="mailto:info@cde-me.com">info@cde-me.com</a>
+        </div>
+        <div class="info-card reveal" style="transition-delay:.1s">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="label">Call Us</div>
+          <a class="value" href="tel:+97143435287">(+971) 43435287</a>
+        </div>
+        <div class="info-card reveal" style="transition-delay:.2s">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="label">Visit Us</div>
+          <div class="value">Office 206, Golden Gate Building,<br />Oud Metha, Dubai, UAE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [3] TWO COLUMN -->
+  <section class="pad" id="inquiry">
+    <div class="wrap">
+      <div class="grid-2">
+        <!-- Left -->
+        <div class="left-col reveal">
+          <span class="overline">How We Can Help</span>
+          <h2 style="margin-top:18px">Start Your Consultation</h2>
+          <p class="lead">
+            We assess existing and new structures across the Middle East.
+            Whether it's a condition audit, forensic investigation, or repair
+            design — our team delivers precision-led solutions.
+          </p>
+          <div class="tags">
+            <span class="tag">Condition Assessment</span>
+            <span class="tag">Forensic Investigation</span>
+            <span class="tag">Structural Analysis</span>
+            <span class="tag">Durability Engineering</span>
+            <span class="tag">Repair &amp; Rehabilitation</span>
+            <span class="tag">Strengthening Solutions</span>
+          </div>
+          <div class="socials">
+            <a class="social-btn" href="https://www.linkedin.com/company/construction-durability-engineers-cde/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM8 19H5V8h3v11zM6.5 6.73a1.74 1.74 0 110-3.48 1.74 1.74 0 010 3.48zM20 19h-3v-5.6c0-3.37-4-3.11-4 0V19h-3V8h3v1.77c1.4-2.59 7-2.78 7 2.47V19z"/></svg>
+            </a>
+            <a class="social-btn" href="https://www.instagram.com/cdeengineering/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a class="social-btn" href="https://wa.me/971558933066" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.737-.979zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.29.173-1.414z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="reveal" style="transition-delay:.12s">
+          <form class="form-card" id="contactForm" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Full Name</label>
+                <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+              </div>
+              <div class="field">
+                <label for="company">Company / Organization</label>
+                <input id="company" name="company" type="text" placeholder="Acme Developments" />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" placeholder="jane@company.com" required />
+              </div>
+              <div class="field">
+                <label for="phone">Phone Number</label>
+                <input id="phone" name="phone" type="tel" placeholder="+971 50 000 0000" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="ptype">Project Type</label>
+              <select id="ptype" name="ptype">
+                <option value="" disabled selected>Select project type</option>
+                <option>Existing Structure</option>
+                <option>New Structure</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Message / Project Description</label>
+              <textarea id="message" name="message" rows="4" placeholder="Briefly describe your structure, location, and what you need…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-filled btn-submit">Submit Inquiry</button>
+            <p class="form-note" id="formNote"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [4] MAP -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="map-wrap reveal">
+        <iframe
+          title="CDE Engineering Services — Golden Gate Building, Oud Metha, Dubai"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Golden%20Gate%20Building%20Oud%20Metha%20Dubai&t=k&z=17&ie=UTF8&iwloc=&output=embed">
+        </iframe>
+        <div class="map-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Office 206, Golden Gate Building · Dubai, UAE
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [5] BOTTOM CTA -->
+  <section class="cta-band">
+    <div class="cta-glow"></div>
+    <div class="wrap">
+      <h2 class="reveal">Prefer a faster reply?</h2>
+      <div class="cta-buttons reveal" style="transition-delay:.1s">
+        <a href="https://wa.me/971558933066" target="_blank" rel="noopener" class="btn btn-filled">WhatsApp +971 55 893 3066</a>
+        <a href="mailto:info@cde-me.com" class="btn btn-outline">Email info@cde-me.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER (shared) ===================== -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <!-- Col 1 -->
+        <div class="footer-brand">
+          <img src="Assets/CDE%20logo.png" class="brand-logo" alt="CDE — Construction Durability Engineers" />
+            <p class="footer-blurb">Specialized engineering consulting across the UAE and Middle East since 2021.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/construction-durability-engineers-cde/" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/cdeengineering/" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://wa.me/971558933066" class="social-btn" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.7-.4 2.9a8.3 8.3 0 0 0 3.9 4c1.5.7 2.3.6 2.9.5.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2 -->
+        <div>
+          <div class="footer-label">Services</div>
+          <ul class="footer-list">
+            <li><a href="index.html#services">Condition Assessment</a></li>
+            <li><a href="index.html#services">Forensic Investigation</a></li>
+            <li><a href="index.html#services">Structural Analysis</a></li>
+            <li><a href="index.html#services">Durability Engineering</a></li>
+            <li><a href="index.html#services">Repair & Rehabilitation</a></li>
+            <li><a href="index.html#services">Strengthening Solutions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div>
+          <div class="footer-label">Company</div>
+          <ul class="footer-list">
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#projects">Case Studies</a></li>
+            <li><a href="index.html#about">Middle East References</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div>
+          <div class="footer-label">Get in Touch</div>
+          <ul class="footer-contact">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <a href="mailto:info@cde-me.com">info@cde-me.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 7a2 2 0 0 1 2-3z"/></svg>
+              <a href="tel:+97143435287">(+971) 43435287</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span class="addr">Office 206, Golden Gate Building, Oud Metha, Dubai</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="left">© 2026 CDE Engineering Services — Construction Durability Engineers</div>
+        <div class="right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Dubai, UAE
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav shadow on scroll
+    const nav = document.getElementById("nav");
+    const onNavScroll = () => nav.classList.toggle("scrolled", window.scrollY > 60);
+    window.addEventListener("scroll", onNavScroll, { passive: true });
+    onNavScroll();
+
+    // Mobile menu
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    hamburger.addEventListener("click", () => {
+      const open = mobileMenu.classList.toggle("open");
+      hamburger.setAttribute("aria-expanded", String(open));
+    });
+    mobileMenu.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      })
+    );
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // Form handling (front-end only)
+    const form = document.getElementById("contactForm");
+    const note = document.getElementById("formNote");
+    form.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      if (!name || !email) {
+        note.style.color = "#c0392b";
+        note.textContent = "Please add your name and email so we can reply.";
+        return;
+      }
+      note.style.color = "var(--accent)";
+      note.textContent = "Thank you, " + name.split(" ")[0] + ". Your inquiry has been received — we'll respond shortly.";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
