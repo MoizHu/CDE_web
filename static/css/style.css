@@ -462,6 +462,139 @@ footer {
 .footer-bottom .right svg { width: 14px; height: 14px; color: var(--accent); }
 
 /* ============================================================
+   CONTENT SUBPAGE (service & solution detail pages)
+   ============================================================ */
+.subpage-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 150px 0 70px;
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero .wrap { position: relative; z-index: 1; }
+.subpage-hero .blob-1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(176,141,79,0.18), transparent 70%);
+  top: -140px; right: -100px;
+  animation: subfloat 18s var(--ease) infinite alternate;
+}
+@keyframes subfloat { to { transform: translate(-50px, 40px) scale(1.12); } }
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+.breadcrumb a { color: var(--muted); transition: color 0.2s var(--ease); }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb span.sep { color: rgba(0,0,0,0.25); }
+.breadcrumb .current { color: var(--text); }
+.subpage-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 300;
+  margin: 14px 0 0;
+  max-width: 18ch;
+}
+.subpage-lead {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 22px 0 0;
+}
+.subpage-hero .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+.content-section { padding: 74px 0; background: var(--surface); }
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+.prose { max-width: 68ch; }
+.prose > .overline { display: block; margin-bottom: 16px; }
+.prose h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 300;
+  margin: 40px 0 16px;
+}
+.prose h2:first-of-type { margin-top: 0; }
+.prose h3 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin: 30px 0 12px;
+}
+.prose p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 18px; }
+.prose ul { list-style: none; margin: 6px 0 22px; display: flex; flex-direction: column; gap: 12px; }
+.prose ul li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.prose ul li::before {
+  content: "›";
+  position: absolute;
+  left: 6px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.prose strong { color: var(--text); font-weight: 500; }
+
+.subpage-aside {
+  position: sticky;
+  top: 100px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  padding: 30px 28px;
+}
+.subpage-aside h4 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.subpage-aside p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+.subpage-aside .btn { width: 100%; }
+.aside-contact { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+.aside-contact li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted); }
+.aside-contact svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+
+.related { padding: 80px 0; background: var(--bg); }
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 44px;
+}
+.related-card { display: flex; flex-direction: column; }
+.related-card .service-name {
+  font-family: "Sora", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 16px 0 10px;
+}
+.related-card .service-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; flex-grow: 1; }
+.related-card .text-link-sm { margin-top: 16px; }
+
+@media (max-width: 860px) {
+  .content-grid { grid-template-columns: 1fr; gap: 40px; }
+  .subpage-aside { position: static; }
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .subpage-hero { padding: 120px 0 56px; }
+  .related-grid { grid-template-columns: 1fr; }
+  .subpage-hero .hero-cta .btn { width: 100%; }
+  .subpage-hero .hero-cta { width: 100%; }
+}
+
+/* ============================================================
    FLOATING WHATSAPP BUTTON (global)
    ============================================================ */
 .wa-float {
