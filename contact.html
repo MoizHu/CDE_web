@@ -162,6 +162,41 @@
     min-height: 18px;
     transition: color 0.2s var(--ease);
   }
+  /* Validation error states */
+  .field.error input,
+  .field.error select,
+  .field.error textarea {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.10);
+  }
+  .field-error {
+    display: none;
+    color: #c0392b;
+    font-size: 12px;
+    margin-top: 7px;
+  }
+  .field.error .field-error { display: block; }
+  .btn-submit[aria-busy="true"] { opacity: 0.7; pointer-events: none; }
+  /* Success panel */
+  .form-success { display: none; text-align: center; padding: 26px 10px; }
+  .form-success.show { display: block; animation: successIn 0.5s var(--ease); }
+  @keyframes successIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .success-icon {
+    width: 64px; height: 64px; margin: 0 auto 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid rgba(200, 169, 110, 0.35);
+    color: var(--accent);
+  }
+  .success-icon svg { width: 30px; height: 30px; }
+  .form-success h3 {
+    font-family: "Sora", sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .form-success p { color: var(--muted); font-size: 14.5px; max-width: 36ch; margin: 0 auto; }
 
   /* ---------- Map ---------- */
   .map-wrap {
@@ -337,11 +372,15 @@
 
         <!-- Right: form -->
         <div class="reveal" style="transition-delay:.12s">
-          <form class="form-card" id="contactForm" novalidate>
+          <form class="form-card" id="contactForm" action="https://formspree.io/f/moizhussain2304@gmail.com" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New inquiry from CDE website" />
+            <!-- Honeypot anti-spam field (hidden from users) -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
             <div class="field-row">
               <div class="field">
                 <label for="name">Full Name</label>
                 <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+                <p class="field-error" id="err-name">Please enter your name.</p>
               </div>
               <div class="field">
                 <label for="company">Company / Organization</label>
@@ -352,6 +391,7 @@
               <div class="field">
                 <label for="email">Email Address</label>
                 <input id="email" name="email" type="email" placeholder="jane@company.com" required />
+                <p class="field-error" id="err-email">Please enter a valid email address.</p>
               </div>
               <div class="field">
                 <label for="phone">Phone Number</label>
@@ -370,10 +410,20 @@
             <div class="field">
               <label for="message">Message / Project Description</label>
               <textarea id="message" name="message" rows="4" placeholder="Briefly describe your structure, location, and what you need…"></textarea>
+              <p class="field-error" id="err-message">Please tell us a little about your project.</p>
             </div>
             <button type="submit" class="btn btn-filled btn-submit">Submit Inquiry</button>
-            <p class="form-note" id="formNote"></p>
+            <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
           </form>
+
+          <!-- Success panel (shown after successful submission) -->
+          <div class="form-card form-success" id="formSuccess" role="status" aria-live="polite">
+            <div class="success-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h3>Thank you — your inquiry is on its way.</h3>
+            <p>Our engineers will review your message and respond shortly. For anything urgent, reach us at <a href="mailto:info@cde-me.com" class="text-link" style="display:inline;">info@cde-me.com</a>.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -487,22 +537,89 @@
 
   <script src="static/js/main.js"></script>
   <script>
-    // Form handling (front-end only)
-    const form = document.getElementById("contactForm");
-    const note = document.getElementById("formNote");
-    form.addEventListener("submit", (ev) => {
-      ev.preventDefault();
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      if (!name || !email) {
-        note.style.color = "#c0392b";
-        note.textContent = "Please add your name and email so we can reply.";
-        return;
+    // ---- Contact form: client-side validation + Formspree AJAX submit ----
+    (function () {
+      var form = document.getElementById("contactForm");
+      if (!form) return;
+      var note = document.getElementById("formNote");
+      var success = document.getElementById("formSuccess");
+      var submitBtn = form.querySelector(".btn-submit");
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      var nameEl = document.getElementById("name");
+      var emailEl = document.getElementById("email");
+      var messageEl = document.getElementById("message");
+
+      function fieldWrap(el) { return el.closest(".field"); }
+      function setError(el, message) {
+        var wrap = fieldWrap(el);
+        wrap.classList.add("error");
+        var err = wrap.querySelector(".field-error");
+        if (err && message) err.textContent = message;
       }
-      note.style.color = "var(--accent)";
-      note.textContent = "Thank you, " + name.split(" ")[0] + ". Your inquiry has been received — we'll respond shortly.";
-      form.reset();
-    });
+      function clearError(el) { fieldWrap(el).classList.remove("error"); }
+
+      function validate() {
+        var ok = true;
+        if (!nameEl.value.trim()) { setError(nameEl, "Please enter your name."); ok = false; }
+        else clearError(nameEl);
+
+        var ev = emailEl.value.trim();
+        if (!ev) { setError(emailEl, "Please enter your email address."); ok = false; }
+        else if (!emailRe.test(ev)) { setError(emailEl, "Please enter a valid email address."); ok = false; }
+        else clearError(emailEl);
+
+        if (!messageEl.value.trim()) { setError(messageEl, "Please tell us a little about your project."); ok = false; }
+        else clearError(messageEl);
+
+        return ok;
+      }
+
+      // Clear a field's error as the user corrects it
+      [nameEl, emailEl, messageEl].forEach(function (el) {
+        el.addEventListener("input", function () { clearError(el); });
+      });
+
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        note.textContent = "";
+        if (!validate()) {
+          note.style.color = "#c0392b";
+          note.textContent = "Please correct the highlighted fields.";
+          return;
+        }
+
+        var original = submitBtn.textContent;
+        submitBtn.setAttribute("aria-busy", "true");
+        submitBtn.textContent = "Sending…";
+
+        fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        }).then(function (res) {
+          if (res.ok) {
+            form.style.display = "none";
+            success.classList.add("show");
+            success.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else {
+            return res.json().then(function (data) {
+              note.style.color = "#c0392b";
+              note.textContent =
+                (data && data.errors && data.errors.map(function (e) { return e.message; }).join(", ")) ||
+                "Something went wrong. Please email us at info@cde-me.com.";
+              submitBtn.removeAttribute("aria-busy");
+              submitBtn.textContent = original;
+            });
+          }
+        }).catch(function () {
+          note.style.color = "#c0392b";
+          note.textContent = "Network error — please check your connection or email info@cde-me.com.";
+          submitBtn.removeAttribute("aria-busy");
+          submitBtn.textContent = original;
+        });
+      });
+    })();
   </script>
 </body>
 </html>
