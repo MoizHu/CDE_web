@@ -9,74 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/style.css" />
 
   <style>
     /* ============================================================
-       GLOBAL RESET & BASE
+       PAGE-SPECIFIC STYLES — shared design system in style.css
     ============================================================ */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    a { color: inherit; text-decoration: none; }
-
-    /* ============================================================
-       TOKENS
-    ============================================================ */
-    :root {
-      --bg:           #FAF9F7;
-      --surface:      #FFFFFF;
-      --accent:       #B08D4F;
-      --accent-soft:  rgba(176, 141, 79, 0.10);
-      --text:         #1A1A1A;
-      --muted:        #6B6B6B;
-      --border:       rgba(0, 0, 0, 0.08);
-      --glass:        rgba(255, 255, 255, 0.65);
-      --input-bg:     rgba(0, 0, 0, 0.03);
-      --input-border: rgba(0, 0, 0, 0.12);
-
-      --radius-sm:   14px;
-      --radius-md:   24px;
-      --radius-lg:   32px;
-      --radius-pill: 999px;
-
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    body {
-      font-family: "Inter", system-ui, sans-serif;
-      font-weight: 300;
-      line-height: 1.6;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    h1, h2, h3 {
-      font-family: "Sora", "Inter", sans-serif;
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      line-height: 1.15;
-    }
-
-    /* ============================================================
-       LAYOUT HELPERS
-    ============================================================ */
-    .wrap {
-      width: 100%;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-    .pad { padding: 70px 0; }
-
-    .overline {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
     .lead {
       font-size: 1.02rem;
       font-weight: 300;
@@ -86,166 +24,6 @@
     }
 
     .section-head { margin-bottom: 40px; }
-    .section-head h2 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 300;
-      margin: 14px 0 14px;
-    }
-
-    /* ============================================================
-       SCROLL REVEAL
-    ============================================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    }
-    .reveal.in {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ============================================================
-       BUTTONS
-    ============================================================ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 30px;
-      border-radius: var(--radius-pill);
-      font-family: "Inter", sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
-                  background 0.25s var(--ease), border-color 0.25s var(--ease);
-    }
-    .btn-filled {
-      background: var(--accent);
-      color: #FFFFFF;
-      font-weight: 600;
-    }
-    .btn-filled:hover {
-      transform: translateY(-2px) scale(1.015);
-      box-shadow: 0 0 30px rgba(200, 169, 110, 0.35);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border-color: rgba(0, 0, 0, 0.20);
-    }
-    .btn-outline:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-      box-shadow: 0 0 24px rgba(176, 141, 79, 0.14);
-    }
-
-    /* ============================================================
-       NAV  (shared across all pages)
-    ============================================================ */
-    .nav {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 36px);
-      max-width: 1180px;
-      z-index: 100;
-      height: 66px;
-      background: rgba(250, 249, 247, 0.80);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      transition: box-shadow 0.3s var(--ease), top 0.3s var(--ease);
-    }
-    .nav.scrolled {
-      top: 12px;
-      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.14);
-    }
-    .nav .wrap {
-      height: 100%;
-      max-width: none;
-      padding: 0 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand-mark {
-      font-family: "Sora", sans-serif;
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--text);
-      line-height: 1.1;
-    }
-    .brand-sub {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-    .brand-logo { height: 54px; width: auto; display: block; mix-blend-mode: multiply; }
-    .footer-brand .brand-logo { height: 64px; }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: "Inter", sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--muted);
-      transition: color 0.2s var(--ease);
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    .nav-cta { padding: 10px 22px; font-size: 13.5px; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 28px; height: 28px;
-      background: none; border: none; cursor: pointer;
-    }
-    .hamburger span {
-      display: block;
-      width: 20px; height: 2px;
-      background: var(--text);
-      transition: all 0.25s var(--ease);
-    }
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 94px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 36px);
-      max-width: 1180px;
-      background: rgba(250, 249, 247, 0.98);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.12);
-      padding: 24px 28px;
-      flex-direction: column;
-      gap: 24px;
-      z-index: 99;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 16px; color: var(--muted); }
-    .mobile-menu a:hover { color: var(--text); }
 
     /* ============================================================
        HERO
@@ -254,14 +32,6 @@
       position: relative;
       overflow: hidden;
       padding: 150px 0 110px;
-    }
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.7;
-      pointer-events: none;
-      z-index: 0;
     }
     .blob-1 {
       width: 520px; height: 520px;
@@ -402,17 +172,7 @@
       display: none;
     }
 
-    .icon-wrap {
-      width: 50px; height: 50px;
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--accent-soft);
-      border: 1px solid rgba(200, 169, 110, 0.25);
-      color: var(--accent);
-      margin-bottom: 22px;
-      flex-shrink: 0;
-    }
-    .icon-wrap svg { width: 22px; height: 22px; }
+    .icon-wrap { margin-bottom: 22px; flex-shrink: 0; }
 
     .card-cat {
       font-size: 12px;
@@ -555,70 +315,6 @@
     }
 
     /* ============================================================
-       FOOTER  (shared across all pages)
-    ============================================================ */
-    .social-btn {
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      transition: all 0.25s var(--ease);
-    }
-    .social-btn svg { width: 19px; height: 19px; }
-    .social-btn:hover {
-      color: var(--accent);
-      border-color: rgba(200, 169, 110, 0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(200, 169, 110, 0.18);
-    }
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 60px 0 36px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-    }
-    .footer-brand .brand-sub { margin-top: 6px; }
-    .footer-blurb { font-size: 13px; color: var(--muted); max-width: 28ch; line-height: 1.7; margin-top: 20px; }
-    .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
-    .footer-label {
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-    .footer-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .footer-list a, .footer-contact li {
-      font-size: 14px;
-      color: var(--muted);
-      transition: color 0.2s var(--ease);
-    }
-    .footer-list a:hover { color: var(--text); }
-    .footer-contact { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .footer-contact li { display: flex; align-items: flex-start; gap: 10px; }
-    .footer-contact svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
-    .footer-contact .addr { font-size: 13px; line-height: 1.6; }
-    .footer-contact a:hover { color: var(--text); }
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      margin-top: 48px;
-      padding-top: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-    .footer-bottom .left { font-size: 13.5px; color: var(--muted); }
-    .footer-bottom .right { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 7px; }
-    .footer-bottom .right svg { width: 14px; height: 14px; color: var(--accent); }
-
-    /* ============================================================
        RESPONSIVE
     ============================================================ */
     @media (max-width: 860px) {
@@ -626,30 +322,12 @@
       .info-row { grid-template-columns: 1fr; }
       .hero { padding: 120px 0 80px; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 540px) {
-      .wrap { padding: 0 20px; }
       .services-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .hero-cta .btn,
-      .cta-buttons .btn { width: 100%; }
-      .hero-cta,
-      .cta-buttons { width: 100%; }
-    }
-
-    /* ============================================================
-       REDUCED MOTION
-    ============================================================ */
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
-      .reveal { opacity: 1; transform: none; }
-      .blob { animation: none; }
-      html { scroll-behavior: auto; }
+      .hero-cta .btn { width: 100%; }
+      .hero-cta { width: 100%; }
     }
   </style>
 </head>
@@ -1104,27 +782,12 @@
   <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
+  <script src="static/js/main.js"></script>
   <script>
     (function () {
       "use strict";
 
-      /* ---- 1. Scroll reveal ---- */
-      var reveals = document.querySelectorAll(".reveal");
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) {
-              e.target.classList.add("in");
-              io.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-        reveals.forEach(function (el) { io.observe(el); });
-      } else {
-        reveals.forEach(function (el) { el.classList.add("in"); });
-      }
-
-      /* ---- 2. Filter tabs ---- */
+      /* ---- Filter tabs ---- */
       var tabs = document.querySelectorAll(".tab");
       var cards = document.querySelectorAll("#services-grid .info-card");
       tabs.forEach(function (tab) {
@@ -1144,28 +807,6 @@
               card.classList.add("hide");
             }
           });
-        });
-      });
-
-      /* ---- 3. Nav shadow on scroll ---- */
-      var nav = document.getElementById("nav");
-      function onScroll() {
-        nav.classList.toggle("scrolled", window.scrollY > 60);
-      }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
-
-      /* ---- 4. Mobile menu ---- */
-      var hamburger = document.getElementById("hamburger");
-      var mobileMenu = document.getElementById("mobileMenu");
-      hamburger.addEventListener("click", function () {
-        var open = mobileMenu.classList.toggle("open");
-        hamburger.setAttribute("aria-expanded", String(open));
-      });
-      mobileMenu.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          mobileMenu.classList.remove("open");
-          hamburger.setAttribute("aria-expanded", "false");
         });
       });
     })();
