@@ -32,11 +32,25 @@ services.forEach(service => service.addEventListener('mouseenter', () => {
   service.classList.add('active');
 }));
 
-const glow = document.querySelector('.cursor-glow');
-window.addEventListener('pointermove', e => {
-  glow.style.left = `${e.clientX}px`;
-  glow.style.top = `${e.clientY}px`;
-});
+let glow = document.querySelector('.cursor-glow');
+if (!glow) {
+  glow = document.createElement('div');
+  glow.className = 'cursor-glow';
+  glow.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(glow);
+}
+
+if (window.matchMedia('(pointer: fine)').matches) {
+  window.addEventListener('pointermove', e => {
+    glow.style.left = `${e.clientX}px`;
+    glow.style.top = `${e.clientY}px`;
+    glow.classList.add('is-visible');
+  });
+
+  document.addEventListener('pointerover', e => {
+    glow.classList.toggle('is-hovering', Boolean(e.target.closest('a, button, [role="link"]')));
+  });
+}
 
 const menuButton = document.querySelector('.menu-btn');
 menuButton.addEventListener('click', () => {
@@ -128,5 +142,5 @@ const filterBar=document.querySelector('.portfolio-filter');
 if(filterBar){ const names=['all','assessment','repair','durability','strengthening']; filterBar.querySelectorAll('span').forEach((span,i)=>{ const button=document.createElement('button'); button.type='button'; button.textContent=span.textContent; button.dataset.filter=names[i]; if(i===0)button.classList.add('active'); span.replaceWith(button); }); filterBar.addEventListener('click',e=>{ const button=e.target.closest('button'); if(!button)return; filterBar.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===button)); document.querySelectorAll('.portfolio-card').forEach(card=>card.classList.toggle('is-hidden',button.dataset.filter!=='all'&&card.dataset.category!==button.dataset.filter)); }); }
 
 const params=new URLSearchParams(window.location.search);
-if(document.body.classList.contains('detail-page')&&!document.body.classList.contains('project-detail-page')){ const data=serviceData[params.get('service')]||serviceData['condition-assessment']; const words=data.title.split(' '); document.title=`${data.title} — CDE Engineering Services`; document.getElementById('detailCategory').textContent=data.category; document.getElementById('detailTitle').innerHTML=`${words.slice(0,-1).join(' ')}<br><em>${words.at(-1)}.</em>`; document.getElementById('detailSummary').textContent=data.summary; document.getElementById('detailLead').textContent=data.lead; document.getElementById('detailBody').textContent=data.body; document.getElementById('detailPoints').innerHTML=data.points.map(p=>`<div><b>${p[0]}</b><span>${p[1]}</span></div>`).join(''); }
-if(document.body.classList.contains('project-detail-page')){ const data=projectData[params.get('project')]||projectData['trillionaire-residences']; document.title=`${data.title} — CDE Projects`; document.getElementById('projectHero').style.backgroundImage=`url('${data.image}')`; document.getElementById('projectLocation').textContent=data.location; const words=data.title.split(' '); document.getElementById('projectTitle').innerHTML=`${words.slice(0,-1).join(' ')}<br><em>${words.at(-1)}.</em>`; document.getElementById('projectSummary').textContent=data.summary; document.getElementById('projectLead').textContent=data.lead; document.getElementById('projectBody').textContent=data.body; document.getElementById('projectPoints').innerHTML=data.points.map(p=>`<div><b>${p[0]}</b><span>${p[1]}</span></div>`).join(''); }
+if(document.body.classList.contains('detail-page')&&!document.body.classList.contains('project-detail-page')){ const data=serviceData[params.get('service')]||serviceData['condition-assessment']; const words=data.title.split(' '); document.title=`${data.title} — CDE Engineering Services`; document.getElementById('detailCategory').textContent=data.category; document.getElementById('detailTitle').innerHTML=`${words.slice(0,-1).join(' ')}<br><em>${words.at(-1)}.</em>`; const summary=document.getElementById('detailSummary'); summary.classList.add('detail-summary-capsule'); summary.textContent=data.summary; document.getElementById('detailLead').textContent=data.lead; document.getElementById('detailBody').textContent=data.body; document.getElementById('detailPoints').innerHTML=data.points.map(p=>`<div><b>${p[0]}</b><span>${p[1]}</span></div>`).join(''); }
+if(document.body.classList.contains('project-detail-page')){ const data=projectData[params.get('project')]||projectData['trillionaire-residences']; document.title=`${data.title} — CDE Projects`; document.getElementById('projectHero').style.backgroundImage=`url('${data.image}')`; document.getElementById('projectLocation').textContent=data.location; const words=data.title.split(' '); document.getElementById('projectTitle').innerHTML=`${words.slice(0,-1).join(' ')}<br><em>${words.at(-1)}.</em>`; const summary=document.getElementById('projectSummary'); summary.classList.add('detail-summary-capsule'); summary.textContent=data.summary; summary.setAttribute('aria-label',`Project scope: ${data.summary.replaceAll(' · ', ', ')}`); document.getElementById('projectLead').textContent=data.lead; document.getElementById('projectBody').textContent=data.body; document.getElementById('projectPoints').innerHTML=data.points.map(p=>`<div><b>${p[0]}</b><span>${p[1]}</span></div>`).join(''); }
