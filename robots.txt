@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://cde-me.com/sitemap.xml
